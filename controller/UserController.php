@@ -88,4 +88,10 @@ class UserController
     {
         ViewHelper::render("view/user-register.php", $errors);
     }
+
+    public static function logout()
+    {
+        User::logout();
+        ViewHelper::redirect(BASE_URL . "user/login");
+    }
 }

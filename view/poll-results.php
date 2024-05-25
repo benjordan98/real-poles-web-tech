@@ -8,23 +8,25 @@
 </head>
 
 <body>
+    <?php include("view/menu.php"); ?>
     <h1>Your Polls!</h1>
     <table>
         <tr>
             <th>Poll Question</th>
-            <th>Yes Votes</th>
-            <th>No Votes</th>
+            <th>North Answer</th>
+            <th>North Votes</th>
+            <th>South Answer</th>
+            <th>South Votes</th>
         </tr>
         <?php foreach ($polls as $poll) : ?>
             <tr>
                 <td>
-                    <!-- <a href="<?= BASE_URL . "poll/" . $poll["poll_id"] ?>">
-                        <?= $poll["question"] ?>
-                    </a> -->
                     <?= $poll["question"] ?>
                 </td>
-                <td><?= $poll["yes_votes"] ?></td>
-                <td><?= $poll["no_votes"] ?></td>
+                <td> <?= $poll["north_ans"] ?> </td>
+                <td><?= $poll["north_votes"] ?></td>
+                <td> <?= $poll["south_ans"] ?> </td>
+                <td><?= $poll["south_votes"] ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

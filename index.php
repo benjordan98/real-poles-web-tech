@@ -26,12 +26,25 @@ $urls = [
             UserController::registerForm(array());
         }
     },
+    "user/logout" => function () {
+        UserController::logout();
+    },
     "results" => function () {
         PollController::showResults();
     },
     "allpolls" => function () {
         PollController::showAllPolls();
     },
+    "poll/add" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            PollController::addPoll();
+        } else {
+            PollController::addPollForm(array());
+        }
+    },
+    "poll/vote" => function () {
+        PollController::vote();
+    }
 ];
 
 try {

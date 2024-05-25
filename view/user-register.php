@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <?php include("view/menu.php"); ?>
     <h1>Sign-up</h1>
     <form action="<?= BASE_URL . "user/register" ?>" method="POST">
         <div>

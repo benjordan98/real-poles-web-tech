@@ -9,6 +9,7 @@
 </head>
 
 <body class="text-center">
+    <?php include("view/menu.php"); ?>
     <main class="form-signin">
         <form action="<?= BASE_URL . "user/login" ?>" method="POST">
             <?php if (!empty($errorMessage)) : ?>
