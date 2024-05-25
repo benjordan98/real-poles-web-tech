@@ -14,15 +14,23 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 $urls = [
     "user/login" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "POST";
             UserController::login();
         } else {
-            echo "show login form";
             UserController::loginForm(array());
         }
     },
-    "user/results" => function () {
+    "user/register" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::register();
+        } else {
+            UserController::registerForm(array());
+        }
+    },
+    "results" => function () {
         PollController::showResults();
+    },
+    "allpolls" => function () {
+        PollController::showAllPolls();
     },
 ];
 
@@ -33,7 +41,7 @@ try {
         echo "No controller for '$path'";
     }
 } catch (Exception $e) {
-    // echo "An error occurred: <pre>$e</pre>";
+    echo "An error occurred: <pre>$e</pre>";
     // 404 or 400 message?
     ViewHelper::error404($e);
 }

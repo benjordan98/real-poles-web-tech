@@ -20,17 +20,45 @@ class UserDB
         $user = $stmt->fetch();
         print_r($user);
         // for now no hashing of password until registration is implemented
-        if ($password == $user["password"]) {
-            echo "password verified";
-            unset($user["password"]);
-            return $user;
-        }
-        // if (password_verify($password, $user["password"])) {
+        // if ($password == $user["password"]) {    
         //     echo "password verified";
         //     unset($user["password"]);
         //     return $user;
         // }
+
+        if (password_verify($password, $user["password"])) {
+            echo "password verified";
+            unset($user["password"]);
+            return $user;
+        }
         echo "password not verified";
         return null;
+    }
+
+    public static function exists($username)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("SELECT COUNT(user_id) FROM users
+            WHERE username = :username");
+        $stmt->bindValue(":username", $username);
+        $stmt->execute();
+        return $stmt->fetchColumn(0) > 0;
+    }
+
+    public static function insertUser($username, $password)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("SELECT MAX(user_id) FROM users");
+        $stmt->execute();
+        $maxUserId = $stmt->fetchColumn();
+        $newUserId = $maxUserId + 1;
+
+        $stmt = $dbh->prepare("INSERT INTO users (user_id, username, password)
+            VALUES (:user_id, :username, :password)");
+        $stmt->bindValue(":user_id", $newUserId);
+        $stmt->bindValue(":username", $username);
+        $stmt->bindValue(":password", $password);
+        $stmt->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));
+        $stmt->execute();
     }
 }
