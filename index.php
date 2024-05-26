@@ -21,8 +21,10 @@ $urls = [
     },
     "user/register" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo "POST - lets register user";
             UserController::register();
         } else {
+            echo "GET - lets show register form";
             UserController::registerForm(array());
         }
     },

@@ -15,7 +15,11 @@ class PollController
 
     public static function showAllPolls()
     {
-        $polls = PollDB::getAllPolls();
+        if (User::isLoggedIn()) {
+            $polls = PollDB::getAllOtherPolls($_SESSION["user_id"]);
+        } else {
+            $polls = PollDB::getAllPolls();
+        }
         // sort the polls by whether the user has voted on them
         usort($polls, function ($a, $b) {
             if (self::hasUserVoted($a["poll_id"]) && !self::hasUserVoted($b["poll_id"])) {

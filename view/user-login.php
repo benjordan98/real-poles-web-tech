@@ -16,7 +16,7 @@
                 <?php if (!empty($errorMessage)) : ?>
                     <p class="important"><?= $errorMessage ?></p>
                 <?php endif; ?>
-                <h1>Please log in</h1>
+                <h1>Log in</h1>
                 <div>
                     <label for="usernameInput">Username</label>
                     <input type="text" name="username" class="form-control" id="usernameInput" placeholder="username" pattern="[a-zA-Z0-9]+">

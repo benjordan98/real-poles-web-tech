@@ -14,6 +14,20 @@ class PollDB
         return $stmt->fetchAll();
     }
 
+    public static function getAllOtherPolls($user_id)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("SELECT p.poll_id, p.question, p.north_ans, p.south_ans, u.username, SUM(v.vote) AS north_votes, COUNT(v.vote) - SUM(v.vote) AS south_votes
+                       FROM polls p
+                       LEFT JOIN votes v ON p.poll_id = v.poll_id
+                       LEFT JOIN users u ON p.created_by = u.user_id
+                          WHERE p.created_by != :user_id
+                       GROUP BY p.poll_id, p.question");
+        $stmt->bindValue(":user_id", $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public static function getAllUserPolls($user_id)
     {
         $dbh = DBInit::getInstance();
@@ -50,6 +64,16 @@ class PollDB
     {
         $dbh = DBInit::getInstance();
         $stmt = $dbh->prepare("SELECT COUNT(*) FROM votes WHERE poll_id = :poll_id AND user_id = :user_id");
+        $stmt->bindValue(":poll_id", $poll_id);
+        $stmt->bindValue(":user_id", $user_id);
+        $stmt->execute();
+        return $stmt->fetchColumn(0) > 0;
+    }
+
+    public static function isMyPoll($poll_id, $user_id)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("SELECT COUNT(*) FROM polls WHERE poll_id = :poll_id AND created_by = :user_id");
         $stmt->bindValue(":poll_id", $poll_id);
         $stmt->bindValue(":user_id", $user_id);
         $stmt->execute();
