@@ -24,11 +24,33 @@
                 <div>
                     <label for="passwordInput">Password</label>
                     <input type="password" name="password" class="form-control" id="passwordInput" placeholder="password" required>
+                    <!-- Checkbox to toggle password visibility -->
+                </div>
+                <div>
+                    <input type="checkbox" id="togglePassword" class="form-control.checkbox-inline">
+                    <label id="togglePasswordLabel" for="togglePassword" class="form-control.label-inline">Show Password</label>
                 </div>
                 <button type="submit">Log in</button>
             </form>
         </main>
     </div>
+
+    <!-- Inline JavaScript for handling password visibility toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const passwordInput = document.querySelector('#passwordInput');
+
+            togglePassword.addEventListener('change', function() {
+                // Toggle the type attribute
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                // Update the label of the checkbox
+                const label = document.getElementById("togglePasswordLabel");
+                label.textContent = label.textContent === "Show Password" ? "Hide Password" : "Show Password";
+            });
+        });
+    </script>
 </body>
 
 </html>

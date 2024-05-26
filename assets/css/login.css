@@ -92,3 +92,17 @@ button:hover {
     text-align: center;
     /* Center the text */
 }
+
+/* Add to your login.css file */
+#togglePassword {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+    /* Adds spacing between checkbox and label */
+}
+
+#togglePasswordLabel{
+    display: inline-block;
+    vertical-align: middle;
+    /* Aligns text vertically centered to the checkbox */
+}
