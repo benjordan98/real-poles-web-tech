@@ -1,5 +1,15 @@
-/* Header and Logo Container */
+body {
+    font-family: Arial, sans-serif;
+}
+/* Header layout with flexbox */
 header {
+    display: flex;
+    align-items: center;
+    /* Aligns items vertically in the center */
+    justify-content: space-between;
+    /* Distributes space between elements */
+    /* padding: 20px 20px; */
+    /* Padding on the sides */
     position: fixed;
     top: 0;
     left: 0;
@@ -7,76 +17,75 @@ header {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* padding: 0 20px; */
-    /* Added padding for better spacing */
-}
-
-/* Body padding to prevent content from hiding under the fixed header */
-body {
-    padding-top: 70px;
-    font-family: Arial, sans-serif;
 }
 
 .logo-container img {
     border-radius: 50%;
     /* Keeps the logo circular */
-    width: 50px;
+    width: 75px;
     /* Adjust width as necessary */
-    height: 50px;
+    height: 75px;
     /* Adjust height as necessary */
     object-fit: contain;
     /* Ensures the image is scaled correctly within the dimensions */
+    margin-left: 20px;
 }
 
-/* Navigation Menu - Now using divs instead of ul/li */
+.title {
+    flex-grow: 1;
+    /* Allows the title to take up the space between the logo and the menu */
+    margin-left: 20px;
+    /* Adds a little space between the logo and the title */
+    font-size: 1.5rem;
+    /* Adjust size as necessary */
+    color: #007BFF;
+    /* Style the title with a suitable color */
+}
+
+/* Adjust the navigation menu */
 nav .menu {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    /* Ensures the menu uses all available space */
+    justify-content: flex-end;
+    /* Aligns menu items to the right */
 }
 
 .menu-item {
-    padding: 10px;
-    margin: 0 5px;
-    /* Gives some space between menu items */
+    padding: 10px 15px;
+    /* Consistent padding around items */
 }
 
 .menu-link {
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
-    display: block;
-    /* Makes the anchor cover the full div */
 }
 
 .menu-link:hover {
     color: #0056b3;
 }
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     header {
         flex-direction: column;
-        padding: 10px 0;
-    }
-
-    .logo-container img {
-        margin-bottom: 10px;
-        /* Space between logo and menu in mobile view */
-    }
-
-    .menu {
-        flex-direction: column;
+        /* Stacks the items vertically */
         align-items: center;
+        /* Center aligns the items when stacked */
     }
 
-    .menu-item {
-        width: 100%;
-        /* Full width to better fit mobile screens */
+    .title {
+        margin-left: 0;
+        /* Removes margin on smaller screens */
         text-align: center;
+        /* Centers the title */
+        margin-top: 10px;
+        /* Adds some space above the title */
+    }
+
+    nav .menu {
+        width: 100%;
+        justify-content: center;
+        /* Centers the menu items */
+        margin-top: 10px;
+        /* Adds space between title and menu */
     }
 }
+

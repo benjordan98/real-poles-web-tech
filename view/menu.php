@@ -33,6 +33,9 @@
         <div class="logo-container">
             <img src="<?= IMAGES_URL . "logo.png" ?>" alt="Logo">
         </div>
+        <div class="title">
+            <h1>Real Poles</h1>
+        </div>
         <nav>
             <div class="menu">
                 <div class="menu-item"><a href="<?= BASE_URL . "allpolls" ?>" class="menu-link">All polls</a></div>
