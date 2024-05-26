@@ -20,7 +20,6 @@
         <div class="title">
             <h1>Real Poles</h1>
         </div>
-        <h1><?= $currentPage ?></h1>
         <nav>
             <div class="menu">
                 <a href="<?= BASE_URL . "allpolls" ?>" class="menu-link <?= ($currentPage == 'allpolls') ? 'menu-link-active' : '' ?>">All polls</a>

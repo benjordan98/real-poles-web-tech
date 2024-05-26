@@ -43,6 +43,10 @@ $urls = [
         PollController::showAllPolls();
     },
     "poll/add" => function () {
+        if (!User::isLoggedIn()) {
+            ViewHelper::redirect(BASE_URL . "user/login");
+            return;
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             PollController::addPoll();
         } else {

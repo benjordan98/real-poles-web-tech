@@ -1,0 +1,107 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding-top: 70px;
+    /* Adjust this based on the actual height of your header */
+    height: calc(100vh - 70px);
+    /* Subtract the height of the header */
+    box-sizing: border-box;
+    /* Includes padding in height calculation */
+}
+
+.add-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Styling for the main form area */
+.form-add {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+/* Header and navigation styling */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+input[type="text"] {
+        width: 100%;
+        /* Adjust width to allow for padding */
+        padding: 10px;
+        /* Padding inside the input */
+        margin: 10px 0;
+        /* Margin around the inputs */
+        display: inline-block;
+        border: 1px solid #ccc;
+        /* Light grey border */
+        border-radius: 4px;
+        /* Rounded borders on the inputs */
+        box-sizing: border-box;
+        /* Includes padding and border in the element's total width and height */
+}
+
+textarea {
+    width: 100%;
+    /* Adjust width to allow for padding */
+    padding: 10px;
+    /* Padding inside the input */
+    margin: 10px 0;
+    /* Margin around the inputs */
+    display: inline-block;
+    border: 1px solid #ccc;
+    /* Light grey border */
+    border-radius: 4px;
+    /* Rounded borders on the inputs */
+    box-sizing: border-box;
+    /* Includes padding and border in the element's total width and height */
+}
+
+/* Label styling */
+label {
+    display: block;
+    /* Makes the label take the full width */
+    margin-bottom: 5px;
+    /* Space below the label */
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    /* Makes the button full width */
+    padding: 10px;
+    background-color: #007BFF;
+    /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    /* Margin above the button */
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+}
+
+/* Error message styling */
+.important {
+    color: #ff0000;
+    /* Red color for error messages */
+    text-align: center;
+    /* Center the text */
+}

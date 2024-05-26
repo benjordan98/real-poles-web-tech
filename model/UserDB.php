@@ -25,7 +25,9 @@ class UserDB
         //     unset($user["password"]);
         //     return $user;
         // }
-
+        if (!$user) {
+            return null;
+        }
         if (password_verify($password, $user["password"])) {
             echo "password verified";
             unset($user["password"]);
