@@ -1,0 +1,122 @@
+/* Container for the cards */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Creates four columns of equal width */
+    gap: 20px;
+    /* Space between the cards */
+    margin: 20px;
+    /* Margin around the entire grid */
+}
+
+.card {
+    transition: transform 0.3s ease-in-out;
+    /* Smooth transition for the transform property */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Slightly increase the size of the card */
+}
+
+/* Styling for the card body */
+.card-body {
+    padding: 20px;
+    /* Spacing inside the card */
+    text-align: center;
+}
+.delete-btn-container {
+    position: absolute;
+    top: 10px;
+    /* Adjust spacing from the top */
+    right: 10px;
+    /* Adjust spacing from the right */
+    z-index: 10;
+    /* Ensure it's above other content */
+}
+
+.delete-btn {
+    padding: 5px 8px;
+    /* Small padding */
+    background-color: grey;
+    /* Red background for visibility */
+    color: white;
+    /* White text color */
+    border: none;
+    /* No border */
+    cursor: pointer;
+    /* Cursor indicates clickable */
+    border-radius: 50%;
+    /* Optional: makes it round */
+    font-size: 16px;
+    /* Adjust font size as needed */
+}
+
+.delete-btn:hover {
+    background-color: red;
+    /* Slightly darker on hover for feedback */
+}
+
+/* Card title styling */
+/* .card-title {
+    font-size: 1.2em;
+    /* bold font */
+/* font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 0; */
+/* } */
+
+.card-title {
+    font-size: larger;
+    /* Bigger text for better readability */
+    font-weight: bold;
+    /* Bold for emphasis */
+}
+
+.north-ans {
+    color: #f38742;
+    /* Specific orange shade for north answers */
+}
+
+.south-ans {
+    color: #39ccf1;
+    /* Specific blue shade for south answers */
+}
+
+/* Card text styling */
+.card-text {
+    color: #666;
+    /* Lighter text color for contrast */
+    margin-bottom: 20px;
+    /* Space below the text */
+}
+
+/* Responsive adjustments for tablets */
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for tablets */
+    }
+}
+
+/* Responsive adjustments for mobile phones */
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for smaller devices */
+    }
+}
+
+/* Very small screens, like smartphones in portrait mode */
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr;
+        /* 1 column for very small screens */
+    }
+}

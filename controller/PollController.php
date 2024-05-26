@@ -33,6 +33,17 @@ class PollController
         ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
     }
 
+    public static function deletePoll()
+    {
+        $validData = isset($_POST["poll_id"]);
+        if ($validData) {
+            PollDB::deletePoll($_POST["poll_id"]);
+            ViewHelper::redirect(BASE_URL . "results");
+        } else {
+            self::showAllPolls(["errorMessage" => "Invalid data."]);
+        }
+    }
+
     public static function addPoll()
     {
         $validData = isset($_POST["question"]) && isset($_POST["north_ans"]) && isset($_POST["south_ans"]);

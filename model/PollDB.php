@@ -60,6 +60,17 @@ class PollDB
         $stmt->execute();
     }
 
+    public static function deletePoll($poll_id)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("DELETE FROM polls WHERE poll_id = :poll_id");
+        $stmt->bindValue(":poll_id", $poll_id);
+        $stmt->execute();
+        $stmt = $dbh->prepare("DELETE FROM votes WHERE poll_id = :poll_id");
+        $stmt->bindValue(":poll_id", $poll_id);
+        $stmt->execute();
+    }
+
     public static function hasUserVoted($poll_id, $user_id)
     {
         $dbh = DBInit::getInstance();

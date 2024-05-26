@@ -29,19 +29,23 @@
                             <?php endif; ?> -->
                             <!-- only show the buttons if the user has not voted on it already -->
                             <?php if (!PollController::hasUserVoted($poll['poll_id'])) : ?>
-                                <button class="btn btn-primary" type="submit" name="vote" value="1">
-                                    <img src="<?= IMAGES_URL . "north_button.png" ?>" alt="North button" style="width: 100px; height: 40px;">
+                                <button class="btn btnBear" type="submit" name="vote" value="1">
+                                    North
+                                    <img src="<?= IMAGES_URL . "polar-bear2.svg" ?>" alt="North button">
                                 </button>
-                                <button class="btn btn-primary" type="submit" name="vote" value="0">
-                                    <img src="<?= IMAGES_URL . "south_button.png" ?>" alt="South button" style="width: 100px; height: 40px;">
+                                <button class="btn btnPenguin" type="submit" name="vote" value="0">
+                                    South
+                                    <img src="<?= IMAGES_URL . "penguin-fatter.svg" ?>" alt="South button">
                                 </button>
                             <?php endif; ?>
-                            <!-- <button class="btn btn-primary" type="submit" name="vote" value="1">
-                                <img src="<?= IMAGES_URL . "north_button.png" ?>" alt="North button" style="width: 100px; height: 40px;">
-                            </button>
-                            <button class="btn btn-primary" type="submit" name="vote" value="0">
-                                <img src="<?= IMAGES_URL . "south_button.png" ?>" alt="South button" style="width: 100px; height: 40px;">
-                            </button> -->
+                            <!-- <?php if (!PollController::hasUserVoted($poll['poll_id'])) : ?>
+                                <button class="btnNorth" type="submit" name="vote" value="1">
+                                    North
+                                </button>
+                                <button class="btnSouth" type="submit" name="vote" value="0">
+                                    South
+                                </button>
+                            <?php endif; ?> -->
                             <?php if (PollController::hasUserVoted($poll['poll_id'])) : ?>
                                 <canvas id="<?= "chart" . $poll['poll_id'] ?>"></canvas>
                             <?php endif; ?>
@@ -55,17 +59,21 @@
 
 <script>
     let chartIds = [<?php foreach ($polls as $poll) : ?><?= $poll['poll_id'] ?>, <?php endforeach; ?>]
-    let northVotes = [<?php foreach ($polls as $poll) : ?><?= $poll['north_votes'] ?>, <?php endforeach; ?>]
+    let northVotes = [<?php foreach ($polls as $poll) : ?><?= (string)$poll['north_votes'] ?>, <?php endforeach; ?>]
+    let northOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['north_ans'] . "'" ?>, <?php endforeach; ?>]
     let southVotes = [<?php foreach ($polls as $poll) : ?><?= $poll['south_votes'] ?>, <?php endforeach; ?>]
+    let southOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['south_ans'] . "'" ?>, <?php endforeach; ?>]
     for (let i = 0; i < chartIds.length; i++) {
         const id = chartIds[i];
         const north = northVotes[i];
+        const northOption = northOptions[i];
         const south = southVotes[i];
+        const southOption = southOptions[i];
         const ctx = document.getElementById("chart" + id).getContext('2d');
         const voteChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['North', 'South'],
+                labels: [northOption, southOption],
                 datasets: [{
                     label: 'Votes',
                     data: [north, south], // Replace these numbers with your actual data

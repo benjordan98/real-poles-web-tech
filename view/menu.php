@@ -22,7 +22,7 @@
         </div>
         <nav>
             <div class="menu">
-                <a href="<?= BASE_URL . "allpolls" ?>" class="menu-link <?= ($currentPage == 'allpolls') ? 'menu-link-active' : '' ?>">All polls</a>
+                <a href="<?= BASE_URL . "allpolls" ?>" class="menu-link <?= ($currentPage == 'allpolls') ? 'menu-link-active' : '' ?>">Public polls</a>
                 <?php if ($loggedIn) : ?>
                     <a href="<?= BASE_URL . "results" ?>" class="menu-link <?= ($currentPage == 'results') ? 'menu-link-active' : '' ?>">My polls</a>
                     <a href="<?= BASE_URL . "poll/add" ?>" class="menu-link <?= ($currentPage == 'add') ? 'menu-link-active' : '' ?>">Add poll</a>

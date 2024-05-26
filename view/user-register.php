@@ -49,14 +49,14 @@
             }
             this.reportValidity();
         });
-    });
 
-    form.addEventListener('submit', function(event) {
-        // Check the validity again on submit and prevent submission if there are any validation errors
-        if (!usernameInput.checkValidity()) {
-            event.preventDefault(); // Stop the form from submitting
-            usernameInput.reportValidity(); // Show the validity error if not already shown
-        }
+        form.addEventListener('submit', function(event) {
+            // Check the validity again on submit and prevent submission if there are any validation errors
+            if (!usernameInput.checkValidity()) {
+                event.preventDefault(); // Stop the form from submitting
+                usernameInput.reportValidity(); // Show the validity error if not already shown
+            }
+        });
     });
 
     const togglePassword = document.querySelector('#togglePassword');
@@ -68,8 +68,9 @@
         const type = passwordInput.type === 'password' ? 'text' : 'password';
         passwordInput.type = type;
         password2Input.type = type;
-        // Toggle the label text
-        this.nextSibling.textContent = (type === 'password') ? "Show Password" : "Hide Password";
+        // Update the label of the checkbox
+        const label = document.getElementById("togglePasswordLabel");
+        label.textContent = label.textContent === "Show Password" ? "Hide Password" : "Show Password";
     });
 </script>
 

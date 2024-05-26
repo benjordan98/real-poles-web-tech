@@ -55,7 +55,10 @@ $urls = [
     },
     "poll/vote" => function () {
         PollController::vote();
-    }
+    },
+    "poll/delete" => function () {
+        PollController::deletePoll();
+    },
 ];
 
 try {

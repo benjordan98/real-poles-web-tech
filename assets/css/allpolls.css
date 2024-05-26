@@ -64,15 +64,66 @@
     /* Space below the text */
 }
 
-/* Styling for buttons within the card */
 .btn {
-    /* background-color: #007BFF; */
+    font-size: larger;
+    color: white;
+    /* White text for visibility */
+    border: none;
+    /* No border for a cleaner look */
+    border-radius: 4px;
+    /* Rounded corners for the button */
+    cursor: pointer;
+    /* Pointer cursor on hover to indicate button functionality */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+    padding: 9px 8px;
+    /* Slightly reduced padding for a tighter fit */
+    display: inline-flex;
+    /* Using flexbox for better alignment control */
+    align-items: center;
+    /* Vertically centers the text and image */
+    justify-content: center;
+    /* Horizontally centers the content */
+    /* gap: 4px; */
+    /* Defines a gap between elements inside the button */
+}
+
+.btn img {
+    margin-left: -20px;
+    margin-right: -20px;
+    /* Negative margin to pull the image closer to the text */
+    width: 20px;
+    /* Control the width of your image */
+    height: auto;
+    /* Maintain aspect ratio */
+    vertical-align: middle;
+    /* Aligns the image with any inline elements */
+}
+
+.btnPenguin {
+    background-color: #39ccf1;
+    /* Specific background color for 'btnPenguin' */
+}
+
+.btnBear {
+    background-color: #f38742;
+    /* Specific background color for 'btnBear' */
+}
+
+.btnPenguin:hover, .btnBear:hover {
+    transform: scale(1.05);
+    /* Slightly increase the size of the card */
+}
+
+.btnNorth {
+    font-size: larger;
+    background-color: #f38742;
     /* Bright blue background */
     color: white;
     /* White text */
     border: none;
     /* No border */
-    /* padding: 10px 20px; */
+    padding: 10px 20px;
     /* Padding around the text */
     margin-right: 10px;
     /* Space between buttons */
@@ -82,6 +133,36 @@
     /* Pointer cursor on hover */
     transition: background-color 0.3s;
     /* Smooth transition for hover effect */
+}
+
+.btnSouth {
+    font-size: larger;
+    background-color:#39ccf1;
+    /* Bright blue background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Padding around the text */
+    margin-right: 10px;
+    /* Space between buttons */
+    border-radius: 4px;
+    /* Rounded corners for the button */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.btnSouth:hover {
+    transform: scale(1.05);
+    /* Slightly increase the size of the card */
+}
+
+.btnNorth:hover {
+    transform: scale(1.05);
+    /* Slightly increase the size of the card */
 }
 
 /* .btn:hover {
