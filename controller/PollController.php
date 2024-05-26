@@ -54,6 +54,9 @@ class PollController
 
     public static function hasUserVoted($poll_id)
     {
+        if (!User::isLoggedIn()) {
+            return false;
+        }
         return PollDB::hasUserVoted($poll_id, $_SESSION["user_id"]);
     }
 

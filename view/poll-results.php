@@ -10,7 +10,7 @@
 <body>
     <?php include("view/menu.php"); ?>
     <div class="main-content">
-        <h1>Your Polls!</h1>
+        <!-- <h1>Your Polls!</h1> -->
         <table>
             <tr>
                 <th>Poll Question</th>

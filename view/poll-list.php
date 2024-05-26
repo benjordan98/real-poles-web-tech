@@ -11,7 +11,7 @@
 <body>
     <?php include("view/menu.php"); ?>
     <div class="main-content">
-        <h1>Polls</h1>
+        <!-- <h1>Polls</h1> -->
         <div class="card-container">
             <?php foreach ($polls as $poll) : ?>
                 <div class="card">

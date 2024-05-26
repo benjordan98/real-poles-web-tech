@@ -9,7 +9,7 @@
 
 <body>
     <?php include("view/menu.php"); ?>
-    <h1>Add a poll!</h1>
+    <!-- <h1>Add a poll!</h1> -->
     <div class="main-container">
         <form action="<?= BASE_URL . "poll/add" ?>" method="POST">
             <div>

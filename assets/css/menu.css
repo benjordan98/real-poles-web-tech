@@ -49,15 +49,16 @@ nav .menu {
     /* Aligns menu items to the right */
 }
 
-.menu-item {
-    padding: 10px 15px;
-    /* Consistent padding around items */
-}
-
 .menu-link {
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
+    padding: 10px 15px;
+}
+
+.menu-link-active {
+    color: #ff4500;
+    /* Example active color */
 }
 
 .menu-link:hover {
