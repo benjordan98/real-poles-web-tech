@@ -44,13 +44,14 @@
                             <h5 class="card-title"><?= $poll["question"] ?></h5>
                             <form method="post" action="<?= BASE_URL . "poll/vote" ?>">
                                 <input type="hidden" name="poll_id" value="<?= $poll['poll_id']; ?>">
-                                <!-- Button for voting for North -->
-                                <button class="btn btn-primary" type="submit" name="vote" value="1">Vote for North</button>
-                                <!-- Button for voting for South -->
-                                <button class="btn btn-primary" type="submit" name="vote" value="0">Vote for South</button>
+                                <p class="card-text">North votes: <?= $poll["north_votes"] ?> South votes: <?= $poll["south_votes"] ?></p>
+                                <button class="btn btn-primary" type="submit" name="vote" value="1">
+                                    <img src="<?= IMAGES_URL . "north_button.png" ?>" alt="fuck shit" style="width: 100px; height: 40px;">
+                                </button>
+                                <button class="btn btn-primary" type="submit" name="vote" value="0">
+                                    <img src="<?= IMAGES_URL . "south_button.png" ?>" alt="fuck" style="width: 100px; height: 40px;">
+                                </button>
                             </form>
-                            <p class="card-text">North votes: <?= $poll["north_votes"] ?></p>
-                            <p class="card-text">South votes: <?= $poll["south_votes"] ?></p>
                         </div>
                     </div>
                 </div>

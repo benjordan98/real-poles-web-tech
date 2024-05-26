@@ -60,8 +60,7 @@ class PollController
             $poll_id = $_POST["poll_id"];
             $vote = $_POST["vote"];
             PollDB::insertVote($poll_id, $vote, $_SESSION["user_id"]);
-            echo "Voted!";
-            ViewHelper::redirect(BASE_URL . "results");
+            ViewHelper::redirect(BASE_URL . "allpolls");
         } else {
             self::showAllPolls(["errorMessage" => "Invalid data."]);
         }

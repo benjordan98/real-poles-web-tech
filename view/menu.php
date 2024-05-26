@@ -13,3 +13,5 @@
     <?php endif; ?>
     ]
 </p>
+
+<img src="<?= IMAGES_URL . "logo.png" ?>" alt="Logo" style="width: 100px; height: 100px; border-radius: 75%;">
