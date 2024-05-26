@@ -30,14 +30,30 @@
 }
 
 /* Card title styling */
-.card-title {
+/* .card-title {
     font-size: 1.2em;
-    /* Larger text for the title */
+    /* bold font */
+    /* font-weight: bold;
     color: #333;
-    /* Dark gray color for better readability */
     margin-bottom: 10px;
-    /* Space below the title */
-    margin-top: 0;
+    margin-top: 0; */
+/* } */ 
+
+.card-title {
+    font-size: larger;
+    /* Bigger text for better readability */
+    font-weight: bold;
+    /* Bold for emphasis */
+}
+
+.north-ans {
+    color: #f38742;
+    /* Specific orange shade for north answers */
+}
+
+.south-ans {
+    color: #39ccf1;
+    /* Specific blue shade for south answers */
 }
 
 /* Card text styling */

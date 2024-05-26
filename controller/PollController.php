@@ -16,6 +16,16 @@ class PollController
     public static function showAllPolls()
     {
         $polls = PollDB::getAllPolls();
+        // sort the polls by whether the user has voted on them
+        usort($polls, function ($a, $b) {
+            if (self::hasUserVoted($a["poll_id"]) && !self::hasUserVoted($b["poll_id"])) {
+                return 1;
+            } else if (!self::hasUserVoted($a["poll_id"]) && self::hasUserVoted($b["poll_id"])) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
         ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
     }
 
