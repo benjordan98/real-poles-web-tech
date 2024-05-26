@@ -1,0 +1,82 @@
+/* Header and Logo Container */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0 20px; */
+    /* Added padding for better spacing */
+}
+
+/* Body padding to prevent content from hiding under the fixed header */
+body {
+    padding-top: 70px;
+    font-family: Arial, sans-serif;
+}
+
+.logo-container img {
+    border-radius: 50%;
+    /* Keeps the logo circular */
+    width: 50px;
+    /* Adjust width as necessary */
+    height: 50px;
+    /* Adjust height as necessary */
+    object-fit: contain;
+    /* Ensures the image is scaled correctly within the dimensions */
+}
+
+/* Navigation Menu - Now using divs instead of ul/li */
+nav .menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    /* Ensures the menu uses all available space */
+}
+
+.menu-item {
+    padding: 10px;
+    margin: 0 5px;
+    /* Gives some space between menu items */
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    display: block;
+    /* Makes the anchor cover the full div */
+}
+
+.menu-link:hover {
+    color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .logo-container img {
+        margin-bottom: 10px;
+        /* Space between logo and menu in mobile view */
+    }
+
+    .menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-item {
+        width: 100%;
+        /* Full width to better fit mobile screens */
+        text-align: center;
+    }
+}

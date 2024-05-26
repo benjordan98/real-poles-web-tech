@@ -5,7 +5,7 @@ require_once("controller/PollController.php");
 require_once("controller/UserController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
-define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/styles/");
+define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/css/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/images/");
 
 
