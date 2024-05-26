@@ -10,7 +10,7 @@ header {
     /* Distributes space between elements */
     /* padding: 20px 20px; */
     /* Padding on the sides */
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     left: 0;
     width: 100%;
@@ -36,7 +36,7 @@ header {
     /* Allows the title to take up the space between the logo and the menu */
     margin-left: 20px;
     /* Adds a little space between the logo and the title */
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     /* Adjust size as necessary */
     color: #007BFF;
     /* Style the title with a suitable color */

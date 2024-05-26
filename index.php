@@ -30,6 +30,11 @@ $urls = [
         UserController::logout();
     },
     "results" => function () {
+        // check if user is logged in
+        if (!User::isLoggedIn()) {
+            ViewHelper::redirect(BASE_URL . "user/login");
+            return;
+        }
         PollController::showResults();
     },
     "allpolls" => function () {

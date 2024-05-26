@@ -53,7 +53,6 @@ class PollDB
         $stmt->bindValue(":poll_id", $poll_id);
         $stmt->bindValue(":user_id", $user_id);
         $stmt->execute();
-        echo $stmt->fetchColumn(0);
         return $stmt->fetchColumn(0) > 0;
     }
 

@@ -9,27 +9,29 @@
 
 <body>
     <?php include("view/menu.php"); ?>
-    <h1>Your Polls!</h1>
-    <table>
-        <tr>
-            <th>Poll Question</th>
-            <th>North Answer</th>
-            <th>North Votes</th>
-            <th>South Answer</th>
-            <th>South Votes</th>
-        </tr>
-        <?php foreach ($polls as $poll) : ?>
+    <div class="main-content">
+        <h1>Your Polls!</h1>
+        <table>
             <tr>
-                <td>
-                    <?= $poll["question"] ?>
-                </td>
-                <td> <?= $poll["north_ans"] ?> </td>
-                <td><?= $poll["north_votes"] ?></td>
-                <td> <?= $poll["south_ans"] ?> </td>
-                <td><?= $poll["south_votes"] ?></td>
+                <th>Poll Question</th>
+                <th>North Answer</th>
+                <th>North Votes</th>
+                <th>South Answer</th>
+                <th>South Votes</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($polls as $poll) : ?>
+                <tr>
+                    <td>
+                        <?= $poll["question"] ?>
+                    </td>
+                    <td> <?= $poll["north_ans"] ?> </td>
+                    <td><?= $poll["north_votes"] ?></td>
+                    <td> <?= $poll["south_ans"] ?> </td>
+                    <td><?= $poll["south_votes"] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 </body>
 
 </html>

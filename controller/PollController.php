@@ -52,7 +52,7 @@ class PollController
         }
         if (self::hasUserVoted($_POST["poll_id"])) {
             self::showAllPolls(["errorMessage" => "You have already voted."]);
-            echo "You have already voted.";
+            // echo "You have already voted.";
             return;
         }
         $validData = isset($_POST["poll_id"]) && isset($_POST["vote"]);
