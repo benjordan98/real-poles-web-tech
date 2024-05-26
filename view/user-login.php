@@ -27,8 +27,8 @@
                     <!-- Checkbox to toggle password visibility -->
                 </div>
                 <div>
-                    <input type="checkbox" id="togglePassword" class="form-control.checkbox-inline">
-                    <label id="togglePasswordLabel" for="togglePassword" class="form-control.label-inline">Show Password</label>
+                    <input type="checkbox" id="togglePassword">
+                    <label id="togglePasswordLabel" for="togglePassword">Show Password</label>
                 </div>
                 <button type="submit">Log in</button>
             </form>
