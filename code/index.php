@@ -13,6 +13,9 @@ define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
+    "" => function () {
+        UserController::loginForm(array());
+    },
     "user/login" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::login();
