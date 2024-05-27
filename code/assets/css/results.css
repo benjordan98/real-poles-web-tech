@@ -1,0 +1,99 @@
+#noPollContainer h1 {
+    color: #333;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+#noPollContainer a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#noPollContainer a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 20px;
+}
+
+.card {
+    transition: transform 0.3s ease-in-out;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.delete-btn-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.delete-btn {
+    padding: 5px 8px;
+    background-color: grey;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.delete-btn:hover {
+    background-color: red;
+}
+
+.card-title {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.north-ans {
+    color: #f38742;
+}
+
+.south-ans {
+    color: #39ccf1;
+}
+
+.card-text {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}

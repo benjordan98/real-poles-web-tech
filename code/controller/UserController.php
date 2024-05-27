@@ -30,7 +30,6 @@ class UserController
             } else {
                 ViewHelper::redirect(BASE_URL . "user/results");
             }
-            // ViewHelper::render("view/user-login-success.php", $vars);
         } else {
             ViewHelper::render("view/user-login.php", [
                 "errorMessage" => $errorMessage,

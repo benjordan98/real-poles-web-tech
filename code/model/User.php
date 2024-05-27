@@ -4,7 +4,6 @@ class User
 {
     public static function login($user)
     {
-        // TODO: do I need both user_id and username in the session?
         $_SESSION["user_id"] = $user["user_id"];
         $_SESSION["username"] = $user["username"];
     }

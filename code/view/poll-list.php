@@ -46,9 +46,8 @@
 <script>
     "use strict";
     $(document).ready(function() {
-        let charts = {}; // Store chart instances
-        let lastVotes = {}; // Store the last votes to check for changes
-        // get all public polls
+        let charts = {};
+        let lastVotes = {};
         $.get({
             url: "<?= BASE_URL . "allpolls-ajax" ?>",
             success: function(data) {
@@ -63,11 +62,6 @@
                         updateChart(pollId, north, south);
                         lastVotes[pollId] = [north, south];
                     }
-                    // const pollId = poll.poll_id;
-                    // const north = poll.north_votes;
-                    // const south = poll.south_votes;
-                    // updateChart(pollId, north, south);
-                    // lastVotes[pollId] = [north, south];
                 });
             }
         });
@@ -79,23 +73,20 @@
             const vote = button.data('vote');
 
             $.ajax({
-                url: "<?= BASE_URL . 'poll/vote-ajax' ?>", // Ensure the URL is correct based on your configuration
+                url: "<?= BASE_URL . 'poll/vote-ajax' ?>",
                 type: "POST",
                 data: {
                     poll_id: pollId,
                     vote: vote
                 },
-                dataType: 'json', // Ensuring that jQuery treats the response as JSON
+                dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        // Update the UI: Remove buttons and show chart
-                        form.find('button').hide(); // Hide voting buttons
+                        form.find('button').hide();
                         updateChart(pollId, response.north_votes, response.south_votes);
-                        $('#chart' + pollId).show(); // Show the chart
-                        // Store the updated votes for periodic update checks
+                        $('#chart' + pollId).show();
                         lastVotes[pollId] = [response.north_votes, response.south_votes];
                     } else if (response.redirect) {
-                        // Handle redirection to the login page
                         window.location.href = response.url;
                     } else {
                         alert('Error: ' + response.message);
@@ -115,11 +106,11 @@
                 console.error('Canvas element not found for chartId:', chartId);
                 return;
             }
-            canvas.style.display = 'block'; // Ensure canvas is visible
+            canvas.style.display = 'block';
             const ctx = canvas.getContext('2d');
             if (charts[chartId]) {
                 console.log('Destroying existing chart for chartId:', chartId);
-                charts[chartId].destroy(); // Destroy existing chart instance if any
+                charts[chartId].destroy();
             }
             charts[chartId] = new Chart(ctx, {
                 type: 'bar',
@@ -153,9 +144,7 @@
             $.ajax({
                 url: "<?= BASE_URL . "polls/get-updates" ?>",
                 success: function(data) {
-                    // const updates = JSON.parse(data);
                     const updates = data;
-                    // console.log(updates);
                     updates.forEach(update => {
                         const pollId = update.poll_id;
                         const northVotes = update.north_votes;
@@ -171,7 +160,7 @@
             });
         }
 
-        // Periodic update every 30 seconds
+        // Periodic update every 3 seconds
         setInterval(fetchUpdates, 3000);
     });
 </script>

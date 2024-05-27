@@ -10,7 +10,7 @@
 
 <body>
     <?php include("view/menu.php"); ?>
-    <div class="login-container"> <!-- Added container to wrap the form -->
+    <div class="login-container">
         <main class="form-signin">
             <form action="<?= BASE_URL . "user/login" ?>" method="POST">
                 <?php if (!empty($errorMessage)) : ?>
@@ -30,7 +30,6 @@
                 <div>
                     <label for="passwordInput">Password</label>
                     <input type="password" name="password" class="form-control" id="passwordInput" placeholder="password" required>
-                    <!-- Checkbox to toggle password visibility -->
                 </div>
                 <div>
                     <input type="checkbox" id="togglePassword">
@@ -41,11 +40,10 @@
         </main>
     </div>
 
-    <!-- Inline JavaScript for handling password visibility toggle -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const usernameInput = document.getElementById("usernameInput");
-            const form = document.querySelector('form'); // Assuming only one form on the page
+            const form = document.querySelector('form');
 
             usernameInput.addEventListener('input', function() {
                 const pattern = /^[a-zA-Z0-9]+$/;
@@ -58,10 +56,9 @@
             });
 
             form.addEventListener('submit', function(event) {
-                // Check the validity again on submit and prevent submission if there are any validation errors
                 if (!usernameInput.checkValidity()) {
-                    event.preventDefault(); // Stop the form from submitting
-                    usernameInput.reportValidity(); // Show the validity error if not already shown
+                    event.preventDefault();
+                    usernameInput.reportValidity();
                 }
             });
 
@@ -69,10 +66,8 @@
             const passwordInput = document.querySelector('#passwordInput');
 
             togglePassword.addEventListener('change', function() {
-                // Toggle the type attribute
                 const type = passwordInput.type === 'password' ? 'text' : 'password';
                 passwordInput.type = type;
-                // Update the label of the checkbox
                 const label = document.getElementById("togglePasswordLabel");
                 label.textContent = label.textContent === "Show Password" ? "Hide Password" : "Show Password";
             });

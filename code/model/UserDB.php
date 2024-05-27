@@ -7,29 +7,18 @@ class UserDB
     public static function getUser($username, $password)
     {
         $dbh = DBInit::getInstance();
-        // print list of db tables to check its working
         $stmt = $dbh->prepare("SELECT user_id, username, password FROM users
             WHERE username = :username");
-        // $stmt = $dbh->prepare("SELECT * FROM users");
         $stmt->bindValue(":username", $username);
-        // print statement
         $stmt->execute();
         $user = $stmt->fetch();
-        // for now no hashing of password until registration is implemented
-        // if ($password == $user["password"]) {    
-        //     echo "password verified";
-        //     unset($user["password"]);
-        //     return $user;
-        // }
         if (!$user) {
             return null;
         }
         if (password_verify($password, $user["password"])) {
-            // echo "password verified";
             unset($user["password"]);
             return $user;
         }
-        // echo "password not verified";
         return null;
     }
 

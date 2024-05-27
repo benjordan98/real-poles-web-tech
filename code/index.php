@@ -31,7 +31,6 @@ $urls = [
         UserController::logout();
     },
     "user/results" => function () {
-        // check if user is logged in
         if (!User::isLoggedIn()) {
             ViewHelper::redirect(BASE_URL . "user/login");
             return;
@@ -39,7 +38,6 @@ $urls = [
         PollController::showResults();
     },
     "user/results-ajax" => function () {
-        // check if user is logged in
         if (!User::isLoggedIn()) {
             ViewHelper::redirect(BASE_URL . "user/login");
             return;
@@ -85,6 +83,5 @@ try {
     }
 } catch (Exception $e) {
     echo "An error occurred: <pre>$e</pre>";
-    // 404 or 400 message?
     ViewHelper::error404($e);
 }

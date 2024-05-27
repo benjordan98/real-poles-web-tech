@@ -1,16 +1,11 @@
 body {
     font-family: Arial, sans-serif;
 }
-/* Header layout with flexbox */
+
 header {
     display: flex;
     align-items: center;
-    /* Aligns items vertically in the center */
     justify-content: space-between;
-    /* Distributes space between elements */
-    /* padding: 20px 20px; */
-    /* Padding on the sides */
-    /* position: fixed; */
     top: 0;
     left: 0;
     width: 100%;
@@ -21,32 +16,22 @@ header {
 
 .logo-container img {
     border-radius: 50%;
-    /* Keeps the logo circular */
     width: 75px;
-    /* Adjust width as necessary */
     height: 75px;
-    /* Adjust height as necessary */
     object-fit: contain;
-    /* Ensures the image is scaled correctly within the dimensions */
     margin-left: 20px;
 }
 
 .title {
     flex-grow: 1;
-    /* Allows the title to take up the space between the logo and the menu */
     margin-left: 20px;
-    /* Adds a little space between the logo and the title */
     font-size: 1.25rem;
-    /* Adjust size as necessary */
     color: #007BFF;
-    /* Style the title with a suitable color */
 }
 
-/* Adjust the navigation menu */
 nav .menu {
     display: flex;
     justify-content: flex-end;
-    /* Aligns menu items to the right */
 }
 
 .menu-link {
@@ -58,35 +43,27 @@ nav .menu {
 
 .menu-link-active {
     color: #ff4500;
-    /* Example active color */
 }
 
 .menu-link:hover {
     color: #0056b3;
 }
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        /* Stacks the items vertically */
         align-items: center;
-        /* Center aligns the items when stacked */
     }
 
     .title {
         margin-left: 0;
-        /* Removes margin on smaller screens */
         text-align: center;
-        /* Centers the title */
         margin-top: 10px;
-        /* Adds some space above the title */
     }
 
     nav .menu {
         width: 100%;
         justify-content: center;
-        /* Centers the menu items */
         margin-top: 10px;
-        /* Adds space between title and menu */
     }
 }
-

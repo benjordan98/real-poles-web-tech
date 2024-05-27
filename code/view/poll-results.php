@@ -45,8 +45,8 @@
 <script>
     "use strict";
     $(document).ready(function() {
-        let charts = {}; // Object to store chart instances
-        let lastData = {}; // Object to store last known data for each poll
+        let charts = {};
+        let lastData = {};
 
         function get_polls() {
             $.get({
@@ -63,16 +63,13 @@
                         const chartId = "chart" + pollId;
                         const currentData = [north, south];
 
-                        // Check if data has changed since last update
                         if (!arraysEqual(lastData[pollId], currentData)) {
                             const ctx = document.getElementById(chartId).getContext('2d');
 
-                            // If a chart already exists, destroy it
                             if (charts[chartId]) {
                                 charts[chartId].destroy();
                             }
 
-                            // Create a new chart
                             charts[chartId] = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
@@ -81,8 +78,8 @@
                                         label: 'Votes',
                                         data: currentData,
                                         backgroundColor: [
-                                            '#f38742', // North votes color
-                                            '#39ccf1' // South votes color
+                                            '#f38742',
+                                            '#39ccf1'
                                         ],
                                         borderColor: [
                                             '#f38742',
@@ -105,15 +102,12 @@
                                 }
                             });
                         }
-
-                        // Update last known data
                         lastData[pollId] = currentData.slice();
                     });
                 }
             });
         }
 
-        // Compare two arrays for equality
         function arraysEqual(arr1, arr2) {
             if (!arr1 || !arr2) return false;
             if (arr1.length !== arr2.length) return false;
@@ -124,57 +118,9 @@
             return true;
         }
 
-        // Initial call to populate charts
         get_polls();
-        // Set interval to update charts every 5 seconds
-        setInterval(get_polls, 5000);
+        setInterval(get_polls, 3000);
     });
-
-
-    // let chartIds = [<?php foreach ($polls as $poll) : ?><?= $poll['poll_id'] ?>, <?php endforeach; ?>]
-    // let northVotes = [<?php foreach ($polls as $poll) : ?><?= (string)$poll['north_votes'] ?>, <?php endforeach; ?>]
-    // let northOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['north_ans'] . "'" ?>, <?php endforeach; ?>]
-    // let southVotes = [<?php foreach ($polls as $poll) : ?><?= $poll['south_votes'] ?>, <?php endforeach; ?>]
-    // let southOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['south_ans'] . "'" ?>, <?php endforeach; ?>]
-    // for (let i = 0; i < chartIds.length; i++) {
-    //     const id = chartIds[i];
-    //     const north = northVotes[i];
-    //     const northOption = northOptions[i];
-    //     const south = southVotes[i];
-    //     const southOption = southOptions[i];
-    //     const ctx = document.getElementById("chart" + id).getContext('2d');
-    //     const voteChart = new Chart(ctx, {
-    //         type: 'bar',
-    //         data: {
-    //             labels: [northOption, southOption],
-    //             datasets: [{
-    //                 label: 'Votes',
-    //                 data: [north, south], // Replace these numbers with your actual data
-    //                 backgroundColor: [
-    //                     '#f38742', // North votes color
-    //                     '#39ccf1' // South votes color
-    //                 ],
-    //                 borderColor: [
-    //                     '#f38742', // North votes color
-    //                     '#39ccf1' // South votes color
-    //                 ],
-    //                 borderWidth: 1
-    //             }]
-    //         },
-    //         options: {
-    //             plugins: {
-    //                 legend: {
-    //                     display: false // This will hide the legend
-    //                 }
-    //             },
-    //             scales: {
-    //                 y: {
-    //                     beginAtZero: true // Ensures the scale starts at 0
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
 </script>
 
 </html>

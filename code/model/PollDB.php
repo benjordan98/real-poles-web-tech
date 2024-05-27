@@ -67,7 +67,6 @@ class PollDB
 
     public static function insertPoll($question, $north_ans, $south_ans, $user_id)
     {
-        // get new poll id
         $dbh = DBInit::getInstance();
         $stmt = $dbh->prepare("SELECT MAX(poll_id) FROM polls");
         $stmt->execute();
@@ -90,9 +89,6 @@ class PollDB
         $stmt = $dbh->prepare("DELETE FROM polls WHERE poll_id = :poll_id");
         $stmt->bindValue(":poll_id", $poll_id);
         $stmt->execute();
-        // $stmt = $dbh->prepare("DELETE FROM votes WHERE poll_id = :poll_id");
-        // $stmt->bindValue(":poll_id", $poll_id);
-        // $stmt->execute();
     }
 
     public static function hasUserVoted($poll_id, $user_id)

@@ -10,7 +10,6 @@
 
 <body>
     <?php include("view/menu.php"); ?>
-    <!-- <h1>Add a poll!</h1> -->
     <div class="add-container">
         <main class="form-add">
             <form action="<?= BASE_URL . "poll/add" ?>" method="POST">
@@ -37,9 +36,8 @@
         const questionInput = document.getElementById("questionInput");
         const northInput = document.getElementById("northInput");
         const southInput = document.getElementById("southInput");
-        const form = document.querySelector('form'); // Assuming only one form on the page
+        const form = document.querySelector('form');
 
-        // Function to check if the question ends with a question mark
         function checkQuestion() {
             const questionPattern = /\?$/;
             if (!questionPattern.test(questionInput.value)) {
@@ -50,7 +48,6 @@
             questionInput.reportValidity();
         }
 
-        // Function to check for single-word input
         function checkSingleWord(inputElement) {
             const wordPattern = /^\S+$/;
             if (!wordPattern.test(inputElement.value)) {
@@ -61,7 +58,6 @@
             inputElement.reportValidity();
         }
 
-        // Event listeners for input validation
         questionInput.addEventListener('input', checkQuestion);
         northInput.addEventListener('input', function() {
             checkSingleWord(this);
@@ -70,17 +66,14 @@
             checkSingleWord(this);
         });
 
-        // Event listener to prevent form submission if any input is invalid
         form.addEventListener('submit', function(event) {
-            // Re-validate all fields to ensure conditions are met
-            checkQuestion(); // Check if the question ends with a question mark
-            checkSingleWord(northInput); // Check if north answer is one word
-            checkSingleWord(southInput); // Check if south answer is one word
+            checkQuestion();
+            checkSingleWord(northInput);
+            checkSingleWord(southInput);
 
             // Prevent form submission if any inputs are invalid
             if (!questionInput.checkValidity() || !northInput.checkValidity() || !southInput.checkValidity()) {
-                event.preventDefault(); // Stop form from submitting
-                // You can add additional actions here, like focusing the first invalid input
+                event.preventDefault();
                 const firstInvalid = form.querySelector(':invalid');
                 firstInvalid && firstInvalid.focus();
             }

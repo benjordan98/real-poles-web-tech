@@ -26,16 +26,6 @@ class PollController
         } else {
             $polls = PollDB::getAllPolls();
         }
-        // sort the polls by whether the user has voted on them
-        // usort($polls, function ($a, $b) {
-        //     if (self::hasUserVoted($a["poll_id"]) && !self::hasUserVoted($b["poll_id"])) {
-        //         return 1;
-        //     } else if (!self::hasUserVoted($a["poll_id"]) && self::hasUserVoted($b["poll_id"])) {
-        //         return -1;
-        //     } else {
-        //         return 0;
-        //     }
-        // });
         ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
     }
 
@@ -48,7 +38,6 @@ class PollController
             $polls = PollDB::getAllPolls();
             echo json_encode($polls);
         }
-        // ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
     }
 
     public static function deletePoll()
@@ -129,11 +118,8 @@ class PollController
         if ($validData) {
             $poll_id = $_POST["poll_id"];
             $vote = $_POST["vote"];
-            // Insert vote
             PollDB::insertVote($poll_id, $vote, $_SESSION["user_id"]);
-            // Fetch updated vote counts
             $votes = PollDB::getVotes($poll_id);
-            // Assuming getVotes returns an array with 'north_votes' and 'south_votes'
             echo json_encode([
                 "success" => true,
                 "north_votes" => $votes['north_votes'],
@@ -147,7 +133,7 @@ class PollController
 
     public static function getUpdates()
     {
-        header('Content-Type: application/json'); // Set the header to ensure response is treated as JSON
+        header('Content-Type: application/json');
         $polls = PollDB::getAllPolls();
         $updates = [];
         foreach ($polls as $poll) {

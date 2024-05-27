@@ -5,7 +5,7 @@ class ViewHelper
     public static function error404()
     {
         header('This page does not exist', true, 404);
-        $h404 = "Error 404: Page not found."; // TODO: Nicer 404 page with a template
+        $h404 = "Error 404: Page not found.";
         echo $h404;
     }
 

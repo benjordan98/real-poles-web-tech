@@ -10,7 +10,7 @@
 
 <body>
     <?php include("view/menu.php"); ?>
-    <div class="register-container"> <!-- Added container to wrap the form -->
+    <div class="register-container">
         <main class="form-signup">
             <form action="<?= BASE_URL . "user/register" ?>" method="POST">
                 <?php if (!empty($errorMessage)) : ?>
@@ -41,7 +41,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const usernameInput = document.getElementById("usernameInput");
-        const form = document.querySelector('form'); // Assuming only one form on the page
+        const form = document.querySelector('form');
 
         usernameInput.addEventListener('input', function() {
             const pattern = /^[a-zA-Z0-9]+$/;
@@ -54,10 +54,9 @@
         });
 
         form.addEventListener('submit', function(event) {
-            // Check the validity again on submit and prevent submission if there are any validation errors
             if (!usernameInput.checkValidity()) {
-                event.preventDefault(); // Stop the form from submitting
-                usernameInput.reportValidity(); // Show the validity error if not already shown
+                event.preventDefault();
+                usernameInput.reportValidity();
             }
         });
     });
@@ -67,11 +66,9 @@
     let password2InputReg = document.querySelector('#password2Input');
 
     togglePasswordRegister.addEventListener('change', function() {
-        // Toggle the type attribute
         const type = passwordInputReg.type === 'password' ? 'text' : 'password';
         passwordInputReg.type = type;
         password2InputReg.type = type;
-        // Update the label of the checkbox
         const label = document.getElementById("togglePasswordLabel");
         label.textContent = label.textContent === "Show Password" ? "Hide Password" : "Show Password";
     });
