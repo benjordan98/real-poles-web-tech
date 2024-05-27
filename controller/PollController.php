@@ -114,15 +114,17 @@ class PollController
     {
         header('Content-Type: application/json'); // Set the header to ensure response is treated as JSON
         if (!User::isLoggedIn()) {
-            echo json_encode(["success" => false, "message" => "You need to be logged in to vote."]);
-            // render login page
-            ViewHelper::render("view/user-login.php", ["errorMessage" => "You need to be logged in to vote."]);
+            $loginUrl = BASE_URL . "user/login" . "?error=" . urlencode("You need to be logged in to vote.");
+            echo json_encode(["success" => false, "redirect" => true, "url" => $loginUrl]);
             return;
         }
+
+
         if (self::hasUserVoted($_POST["poll_id"])) {
             echo json_encode(["success" => false, "message" => "You have already voted."]);
             return;
         }
+
         $validData = isset($_POST["poll_id"]) && isset($_POST["vote"]);
         if ($validData) {
             $poll_id = $_POST["poll_id"];

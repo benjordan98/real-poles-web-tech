@@ -79,16 +79,14 @@
             const vote = button.data('vote');
 
             $.ajax({
-                url: "<?= BASE_URL . "poll/vote-ajax" ?>",
+                url: "<?= BASE_URL . 'poll/vote-ajax' ?>", // Ensure the URL is correct based on your configuration
                 type: "POST",
                 data: {
                     poll_id: pollId,
                     vote: vote
                 },
-                success: function(data) {
-                    // console.log(data)
-                    // const response = JSON.parse(data);
-                    const response = data;
+                dataType: 'json', // Ensuring that jQuery treats the response as JSON
+                success: function(response) {
                     if (response.success) {
                         // Update the UI: Remove buttons and show chart
                         form.find('button').hide(); // Hide voting buttons
@@ -96,15 +94,19 @@
                         $('#chart' + pollId).show(); // Show the chart
                         // Store the updated votes for periodic update checks
                         lastVotes[pollId] = [response.north_votes, response.south_votes];
+                    } else if (response.redirect) {
+                        // Handle redirection to the login page
+                        window.location.href = response.url;
                     } else {
-                        alert('Error: ' + response.error);
+                        alert('Error: ' + response.message);
                     }
                 },
-                error: function() {
-                    alert('Error submitting vote.');
+                error: function(xhr, status, error) {
+                    alert('An error occurred: ' + error);
                 }
             });
         });
+
 
         function updateChart(pollId, northVotes, southVotes) {
             const chartId = 'chart' + pollId;

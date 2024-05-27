@@ -16,6 +16,12 @@
                 <?php if (!empty($errorMessage)) : ?>
                     <p class="important"><?= $errorMessage ?></p>
                 <?php endif; ?>
+                <?php
+                if (isset($_GET['error'])) {
+                    $errorMessage = htmlspecialchars($_GET['error']);
+                    echo "<p class='important'>{$errorMessage}</p>";
+                }
+                ?>
                 <h1>Log in</h1>
                 <div>
                     <label for="usernameInput">Username</label>
