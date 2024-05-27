@@ -11,6 +11,11 @@ body {
     /* Includes padding in height calculation */
 }
 
+.important {
+    color: #ff0000;
+    text-align: center;
+}
+
 .register-container {
     display: flex;
     justify-content: center;

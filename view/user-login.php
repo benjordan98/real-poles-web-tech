@@ -38,6 +38,27 @@
     <!-- Inline JavaScript for handling password visibility toggle -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const usernameInput = document.getElementById("usernameInput");
+            const form = document.querySelector('form'); // Assuming only one form on the page
+
+            usernameInput.addEventListener('input', function() {
+                const pattern = /^[a-zA-Z0-9]+$/;
+                if (!pattern.test(this.value)) {
+                    this.setCustomValidity("Username can only contain letters and numbers.");
+                } else {
+                    this.setCustomValidity("");
+                }
+                this.reportValidity();
+            });
+
+            form.addEventListener('submit', function(event) {
+                // Check the validity again on submit and prevent submission if there are any validation errors
+                if (!usernameInput.checkValidity()) {
+                    event.preventDefault(); // Stop the form from submitting
+                    usernameInput.reportValidity(); // Show the validity error if not already shown
+                }
+            });
+
             const togglePassword = document.querySelector('#togglePassword');
             const passwordInput = document.querySelector('#passwordInput');
 

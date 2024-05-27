@@ -12,8 +12,11 @@
     <?php include("view/menu.php"); ?>
     <div class="register-container"> <!-- Added container to wrap the form -->
         <main class="form-signup">
-            <h1>Sign-up</h1>
             <form action="<?= BASE_URL . "user/register" ?>" method="POST">
+                <?php if (!empty($errorMessage)) : ?>
+                    <p class="important"><?= $errorMessage ?></p>
+                <?php endif; ?>
+                <h1>Sign-up</h1>
                 <div>
                     <label for="usernameInput">Username</label>
                     <input type="text" name="username" class="form-control" id="usernameInput" placeholder="username" pattern="[a-zA-Z0-9]+" required>
@@ -59,15 +62,15 @@
         });
     });
 
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordInput = document.querySelector('#passwordInput');
-    const password2Input = document.querySelector('#password2Input');
+    let togglePasswordRegister = document.querySelector('#togglePassword');
+    let passwordInputReg = document.querySelector('#passwordInput');
+    let password2InputReg = document.querySelector('#password2Input');
 
-    togglePassword.addEventListener('change', function() {
+    togglePasswordRegister.addEventListener('change', function() {
         // Toggle the type attribute
-        const type = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = type;
-        password2Input.type = type;
+        const type = passwordInputReg.type === 'password' ? 'text' : 'password';
+        passwordInputReg.type = type;
+        password2InputReg.type = type;
         // Update the label of the checkbox
         const label = document.getElementById("togglePasswordLabel");
         label.textContent = label.textContent === "Show Password" ? "Hide Password" : "Show Password";

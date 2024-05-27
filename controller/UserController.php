@@ -86,7 +86,14 @@ class UserController
 
     public static function registerForm($errors)
     {
-        ViewHelper::render("view/user-register.php", $errors);
+        // compose error message from first error
+        $errorMessage = "";
+        if (!empty($errors)) {
+            $errorMessage = array_values($errors)[0];
+        }
+        ViewHelper::render("view/user-register.php", [
+            "errorMessage" => $errorMessage,
+        ]);
     }
 
     public static function logout()
