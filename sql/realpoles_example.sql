@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 06:45 PM
+-- Generation Time: May 27, 2024 at 08:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,12 +40,14 @@ CREATE TABLE `polls` (
 --
 
 INSERT INTO `polls` (`poll_id`, `question`, `north_ans`, `south_ans`, `created_by`) VALUES
-(1, 'My First poll. Which is better?', 'Tea', 'Coffee', 1),
-(2, 'a poll?', 'yes', 'no', 1),
-(3, 'Which beer is better?', 'Union', 'Lasko', 2),
-(4, 'A test poll?', 'north', 'south', 1),
-(5, 'ajax poll?', 'yes', 'no', 1),
-(6, 'another ajax test?', 'ajax', 'fuck', 1);
+(1, 'What is the better standard?', 'SSE', 'Webhooks', 1),
+(2, 'Katero pivo je boljse?', 'Lasko', 'Union', 1),
+(3, 'Trieste is?', 'Slovenian', 'Italian', 1),
+(4, 'Tea with or without milk?', 'with', 'without', 1),
+(5, 'What is the superior dish?', 'Štruklji', 'Beans-on-toast', 2),
+(6, 'Correct way to make Cedevita?', 'water-first', 'cedevita-first', 2),
+(7, 'Who\'s your favourite?', 'Pogacar', 'Roglic', 2),
+(8, 'What is the better city?', 'Ljubljana', 'Prague', 6);
 
 -- --------------------------------------------------------
 
@@ -64,8 +66,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
-(1, 'bwjordan', '$2y$10$cBNRLFr2NCzzlXxzdCc7huiqm6.s.mK6Jtpn6GIOTq2zlCj6h7/eW'),
-(2, 'user1', '$2y$10$7tijx.rpFx3UoFl8CycAreEEruUjdMleEEM1cDub2uVfjhSiduVhO');
+(1, 'bwjordan', '$2y$10$yrZ5weumm7g4T2WOnfdr.Oygtp0jmFxtbWBoiJ1KQMTGmVRMPmfb.'),
+(2, 'user1', '$2y$10$uLIQJstWlL0Z.68GFGfN/.Isyv3t/mwek2yz7EPjWLvAjEBzKGwvi'),
+(3, 'user2', '$2y$10$TzkEncx/r0iTZK8mq0Dv7uEMqLlHN53bZ1t/O0laKkseQoKoHFaw6'),
+(4, 'user3', '$2y$10$GFin/vx7lMdG9ImTycxg1eDScPsaIe8NC2UFlmFEu/l7hZ4wWCyDW'),
+(5, 'user4', '$2y$10$hlAyaA5a8SNlb0Bf.fJjv.tdYwCnI4j4tinZGhfsXNJDmCTXect/y'),
+(6, 'user5', '$2y$10$e7qwvay9oDq4AjN5otfFE.BhE.MQuSoPGCX7Q0.wDQ0XKel9MrD8W');
 
 -- --------------------------------------------------------
 
@@ -85,12 +91,43 @@ CREATE TABLE `votes` (
 --
 
 INSERT INTO `votes` (`vote_id`, `poll_id`, `user_id`, `vote`) VALUES
-(1, 3, 1, 0),
-(2, 2, 2, 1),
-(3, 1, 2, 0),
-(4, 4, 2, 1),
-(5, 5, 2, 1),
-(6, 6, 2, 1);
+(1, 4, 2, 1),
+(2, 1, 3, 1),
+(3, 2, 3, 1),
+(4, 3, 3, 1),
+(5, 5, 3, 0),
+(6, 4, 3, 1),
+(7, 7, 3, 1),
+(8, 6, 3, 1),
+(9, 1, 4, 1),
+(10, 2, 4, 0),
+(11, 3, 4, 0),
+(12, 4, 4, 1),
+(13, 5, 4, 0),
+(14, 6, 4, 0),
+(15, 7, 4, 0),
+(16, 1, 5, 0),
+(17, 2, 5, 0),
+(18, 4, 5, 1),
+(19, 3, 5, 1),
+(20, 6, 5, 1),
+(21, 5, 5, 0),
+(22, 7, 5, 1),
+(23, 8, 1, 1),
+(24, 1, 6, 1),
+(25, 2, 6, 1),
+(26, 3, 6, 1),
+(27, 4, 6, 0),
+(28, 5, 6, 0),
+(29, 6, 6, 1),
+(30, 7, 6, 1),
+(31, 6, 1, 0),
+(32, 5, 1, 0),
+(33, 7, 1, 1),
+(34, 1, 2, 0),
+(35, 2, 2, 1),
+(36, 3, 2, 1),
+(37, 8, 2, 1);
 
 --
 -- Indexes for dumped tables
