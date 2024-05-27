@@ -1,3 +1,30 @@
+#noPollContainer h1 {
+    color: #333;
+    /* Dark grey color for text */
+    font-size: 24px;
+    /* Appropriate font size for headings */
+    font-family: Arial, sans-serif;
+    /* Font family for clean typography */
+    margin-bottom: 10px;
+    /* Space below the heading */
+}
+
+#noPollContainer a {
+    color: #007bff;
+    /* Bootstrap's primary blue for links */
+    text-decoration: none;
+    /* No underline to keep it clean */
+    font-weight: bold;
+    /* Bold to make it stand out */
+}
+
+#noPollContainer a:hover {
+    color: #0056b3;
+    /* Darker blue on hover for interaction feedback */
+    text-decoration: underline;
+    /* Underline on hover to indicate it's clickable */
+}
+
 /* Container for the cards */
 .card-container {
     display: grid;
@@ -30,6 +57,7 @@
     /* Spacing inside the card */
     text-align: center;
 }
+
 .delete-btn-container {
     position: absolute;
     top: 10px;

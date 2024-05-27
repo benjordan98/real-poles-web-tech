@@ -4,35 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "results.css" ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?= CSS_URL . 'results.css' ?>">
     <title>Your Polls</title>
 </head>
 
 <body>
     <?php include("view/menu.php"); ?>
+    <div id="noPollContainer">
+        <?php if (empty($polls)) : ?>
+            <h1>You have not created a poll yet! <a href="<?= BASE_URL . "poll/add" ?>">Add a poll</a></h1>
+    </div>
     <div class="main-content">
-        <!-- <h1>Polls</h1> -->
-        <div class="card-container">
-            <?php foreach ($polls as $poll) : ?>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="delete-btn-container">
-                            <form method="post" action="<?= BASE_URL . "poll/delete" ?>">
-                                <input type="hidden" name="poll_id" value="<?= $poll['poll_id']; ?>">
-                                <button type="submit" class="delete-btn">X</button>
-                            </form>
-                        </div>
-                        <p class="card-title">
-                            <span><?= $poll["question"] ?></span>
-                            <span class="north-ans"><?= $poll["north_ans"] ?></span>
-                            <span class="south-ans"><?= $poll["south_ans"] ?></span>
-                        </p>
-                        <canvas id="<?= "chart" . $poll['poll_id'] ?>"></canvas>
+        <!-- if there are no polls then show a message saying add a poll with a link to the add poll page -->
+    <?php endif; ?>
+    <!-- <h1>Polls</h1> -->
+    <div class="card-container">
+        <?php foreach ($polls as $poll) : ?>
+            <div class="card">
+                <div class="card-body">
+                    <div class="delete-btn-container">
+                        <form method="post" action="<?= BASE_URL . "poll/delete" ?>">
+                            <input type="hidden" name="poll_id" value="<?= $poll['poll_id']; ?>">
+                            <button type="submit" class="delete-btn">X</button>
+                        </form>
                     </div>
+                    <p class="card-title">
+                        <span><?= $poll["question"] ?></span>
+                        <span class="north-ans"><?= $poll["north_ans"] ?></span>
+                        <span class="south-ans"><?= $poll["south_ans"] ?></span>
+                    </p>
+                    <canvas id="<?= "chart" . $poll['poll_id'] ?>"></canvas>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
     </div>
 </body>
 <script>
