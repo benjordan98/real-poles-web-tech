@@ -13,6 +13,12 @@ class PollController
         ViewHelper::render("view/poll-results.php", ["polls" => $polls]);
     }
 
+    public static function showResultsAjax()
+    {
+        $polls = PollDB::getAllUserPolls($_SESSION["user_id"]);
+        echo json_encode($polls);
+    }
+
     public static function showAllPolls()
     {
         if (User::isLoggedIn()) {

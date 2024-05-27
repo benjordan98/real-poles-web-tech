@@ -7,6 +7,7 @@ require_once("controller/UserController.php");
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/css/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/images/");
+define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
 
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
@@ -36,6 +37,14 @@ $urls = [
             return;
         }
         PollController::showResults();
+    },
+    "user/results-ajax" => function () {
+        // check if user is logged in
+        if (!User::isLoggedIn()) {
+            ViewHelper::redirect(BASE_URL . "user/login");
+            return;
+        }
+        PollController::showResultsAjax();
     },
     "allpolls" => function () {
         PollController::showAllPolls();

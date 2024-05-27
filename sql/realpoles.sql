@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 11:59 AM
+-- Generation Time: May 27, 2024 at 06:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,11 @@ CREATE TABLE `polls` (
 
 INSERT INTO `polls` (`poll_id`, `question`, `north_ans`, `south_ans`, `created_by`) VALUES
 (1, 'My First poll. Which is better?', 'Tea', 'Coffee', 1),
-(2, 'a poll?', 'yes', 'no', 1);
+(2, 'a poll?', 'yes', 'no', 1),
+(3, 'Which beer is better?', 'Union', 'Lasko', 2),
+(4, 'A test poll?', 'north', 'south', 1),
+(5, 'ajax poll?', 'yes', 'no', 1),
+(6, 'another ajax test?', 'ajax', 'fuck', 1);
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
-(1, 'bwjordan', '$2y$10$cBNRLFr2NCzzlXxzdCc7huiqm6.s.mK6Jtpn6GIOTq2zlCj6h7/eW');
+(1, 'bwjordan', '$2y$10$cBNRLFr2NCzzlXxzdCc7huiqm6.s.mK6Jtpn6GIOTq2zlCj6h7/eW'),
+(2, 'user1', '$2y$10$7tijx.rpFx3UoFl8CycAreEEruUjdMleEEM1cDub2uVfjhSiduVhO');
 
 -- --------------------------------------------------------
 
@@ -74,6 +79,18 @@ CREATE TABLE `votes` (
   `user_id` int(10) NOT NULL,
   `vote` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `votes`
+--
+
+INSERT INTO `votes` (`vote_id`, `poll_id`, `user_id`, `vote`) VALUES
+(1, 3, 1, 0),
+(2, 2, 2, 1),
+(3, 1, 2, 0),
+(4, 4, 2, 1),
+(5, 5, 2, 1),
+(6, 6, 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -97,8 +114,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `votes`
   ADD PRIMARY KEY (`vote_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `votes_ibfk_1` (`poll_id`);
+  ADD KEY `votes_ibfk_1` (`poll_id`),
+  ADD KEY `votes_ibfk_2` (`user_id`);
 
 --
 -- Constraints for dumped tables
@@ -114,8 +131,8 @@ ALTER TABLE `polls`
 -- Constraints for table `votes`
 --
 ALTER TABLE `votes`
-  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`poll_id`) REFERENCES `polls` (`poll_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`poll_id`) REFERENCES `polls` (`poll_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
