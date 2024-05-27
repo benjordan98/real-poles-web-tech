@@ -29,7 +29,7 @@ $urls = [
     "user/logout" => function () {
         UserController::logout();
     },
-    "results" => function () {
+    "user/results" => function () {
         // check if user is logged in
         if (!User::isLoggedIn()) {
             ViewHelper::redirect(BASE_URL . "user/login");
@@ -63,7 +63,7 @@ try {
     if (isset($urls[$path])) {
         $urls[$path]();
     } else {
-        echo "No controller for '$path'";
+        ViewHelper::error404();
     }
 } catch (Exception $e) {
     echo "An error occurred: <pre>$e</pre>";

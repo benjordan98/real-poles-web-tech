@@ -26,9 +26,9 @@ class UserController
             ];
 
             if (User::isAdmin()) {
-                ViewHelper::redirect(BASE_URL . "results");
+                ViewHelper::redirect(BASE_URL . "user/results");
             } else {
-                ViewHelper::redirect(BASE_URL . "results");
+                ViewHelper::redirect(BASE_URL . "user/results");
             }
             // ViewHelper::render("view/user-login-success.php", $vars);
         } else {

@@ -8,8 +8,6 @@ class UserDB
     {
         $dbh = DBInit::getInstance();
         // print list of db tables to check its working
-        $stmt = $dbh->query("SHOW TABLES");
-        $tables = $stmt->fetchAll();
         $stmt = $dbh->prepare("SELECT user_id, username, password FROM users
             WHERE username = :username");
         // $stmt = $dbh->prepare("SELECT * FROM users");

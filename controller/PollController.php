@@ -38,7 +38,7 @@ class PollController
         $validData = isset($_POST["poll_id"]);
         if ($validData) {
             PollDB::deletePoll($_POST["poll_id"]);
-            ViewHelper::redirect(BASE_URL . "results");
+            ViewHelper::redirect(BASE_URL . "user/results");
         } else {
             self::showAllPolls(["errorMessage" => "Invalid data."]);
         }
@@ -52,7 +52,7 @@ class PollController
             $north_ans = $_POST["north_ans"];
             $south_ans = $_POST["south_ans"];
             PollDB::insertPoll($question, $north_ans, $south_ans, $_SESSION["user_id"]);
-            ViewHelper::redirect(BASE_URL . "results");
+            ViewHelper::redirect(BASE_URL . "user/results");
         } else {
             self::addPollForm(["errorMessage" => "Invalid data."]);
         }
