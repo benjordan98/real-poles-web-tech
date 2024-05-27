@@ -27,16 +27,28 @@ class PollController
             $polls = PollDB::getAllPolls();
         }
         // sort the polls by whether the user has voted on them
-        usort($polls, function ($a, $b) {
-            if (self::hasUserVoted($a["poll_id"]) && !self::hasUserVoted($b["poll_id"])) {
-                return 1;
-            } else if (!self::hasUserVoted($a["poll_id"]) && self::hasUserVoted($b["poll_id"])) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        // usort($polls, function ($a, $b) {
+        //     if (self::hasUserVoted($a["poll_id"]) && !self::hasUserVoted($b["poll_id"])) {
+        //         return 1;
+        //     } else if (!self::hasUserVoted($a["poll_id"]) && self::hasUserVoted($b["poll_id"])) {
+        //         return -1;
+        //     } else {
+        //         return 0;
+        //     }
+        // });
         ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
+    }
+
+    public static function showAllPollsAjax()
+    {
+        if (User::isLoggedIn()) {
+            $polls = PollDB::getAllOtherPollsAjax($_SESSION["user_id"]);
+            echo json_encode($polls);
+        } else {
+            $polls = PollDB::getAllPolls();
+            echo json_encode($polls);
+        }
+        // ViewHelper::render("view/poll-list.php", ["polls" => $polls]);
     }
 
     public static function deletePoll()
@@ -96,5 +108,54 @@ class PollController
         } else {
             self::showAllPolls(["errorMessage" => "Invalid data."]);
         }
+    }
+
+    public static function voteAjax()
+    {
+        header('Content-Type: application/json'); // Set the header to ensure response is treated as JSON
+        if (!User::isLoggedIn()) {
+            echo json_encode(["success" => false, "message" => "You need to be logged in to vote."]);
+            // render login page
+            ViewHelper::render("view/user-login.php", ["errorMessage" => "You need to be logged in to vote."]);
+            return;
+        }
+        if (self::hasUserVoted($_POST["poll_id"])) {
+            echo json_encode(["success" => false, "message" => "You have already voted."]);
+            return;
+        }
+        $validData = isset($_POST["poll_id"]) && isset($_POST["vote"]);
+        if ($validData) {
+            $poll_id = $_POST["poll_id"];
+            $vote = $_POST["vote"];
+            // Insert vote
+            PollDB::insertVote($poll_id, $vote, $_SESSION["user_id"]);
+            // Fetch updated vote counts
+            $votes = PollDB::getVotes($poll_id);
+            // Assuming getVotes returns an array with 'north_votes' and 'south_votes'
+            echo json_encode([
+                "success" => true,
+                "north_votes" => $votes['north_votes'],
+                "south_votes" => $votes['south_votes'],
+                "poll_id" => $poll_id
+            ]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Invalid data."]);
+        }
+    }
+
+    public static function getUpdates()
+    {
+        header('Content-Type: application/json'); // Set the header to ensure response is treated as JSON
+        $polls = PollDB::getAllPolls();
+        $updates = [];
+        foreach ($polls as $poll) {
+            $votes = PollDB::getVotes($poll["poll_id"]);
+            $updates[] = [
+                "poll_id" => $poll["poll_id"],
+                "north_votes" => $votes["north_votes"],
+                "south_votes" => $votes["south_votes"]
+            ];
+        }
+        echo json_encode($updates);
     }
 }

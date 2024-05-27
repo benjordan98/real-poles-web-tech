@@ -22,33 +22,19 @@
                             <span class="north-ans"><?= $poll["north_ans"] ?></span>
                             <span class="south-ans"><?= $poll["south_ans"] ?></span>
                         </p>
-                        <form method="post" action="<?= BASE_URL . "poll/vote" ?>">
+                        <form class="vote-form" data-poll-id="<?= $poll['poll_id']; ?>">
                             <input type="hidden" name="poll_id" value="<?= $poll['poll_id']; ?>">
-                            <!-- <?php if (PollController::hasUserVoted($poll['poll_id'])) : ?>
-                                <p class="card-text">North votes: <?= $poll["north_votes"] ?> South votes: <?= $poll["south_votes"] ?></p>
-                            <?php endif; ?> -->
-                            <!-- only show the buttons if the user has not voted on it already -->
                             <?php if (!PollController::hasUserVoted($poll['poll_id'])) : ?>
-                                <button class="btn btnBear" type="submit" name="vote" value="1">
+                                <button class="btn btnBear" type="button" data-vote="1">
                                     North
                                     <img src="<?= IMAGES_URL . "polar-bear2.svg" ?>" alt="North button">
                                 </button>
-                                <button class="btn btnPenguin" type="submit" name="vote" value="0">
+                                <button class="btn btnPenguin" type="button" data-vote="0">
                                     South
                                     <img src="<?= IMAGES_URL . "penguin-fatter.svg" ?>" alt="South button">
                                 </button>
                             <?php endif; ?>
-                            <!-- <?php if (!PollController::hasUserVoted($poll['poll_id'])) : ?>
-                                <button class="btnNorth" type="submit" name="vote" value="1">
-                                    North
-                                </button>
-                                <button class="btnSouth" type="submit" name="vote" value="0">
-                                    South
-                                </button>
-                            <?php endif; ?> -->
-                            <?php if (PollController::hasUserVoted($poll['poll_id'])) : ?>
-                                <canvas id="<?= "chart" . $poll['poll_id'] ?>"></canvas>
-                            <?php endif; ?>
+                            <canvas id="chart<?= $poll['poll_id']; ?>" style="display: none;"></canvas>
                         </form>
                     </div>
                 </div>
@@ -56,52 +42,136 @@
         </div>
     </div>
 </body>
-
+<script src="<?= ASSETS_URL . "jquery-3.2.1.min.js" ?>"></script>
 <script>
-    let chartIds = [<?php foreach ($polls as $poll) : ?><?= $poll['poll_id'] ?>, <?php endforeach; ?>]
-    let northVotes = [<?php foreach ($polls as $poll) : ?><?= (string)$poll['north_votes'] ?>, <?php endforeach; ?>]
-    let northOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['north_ans'] . "'" ?>, <?php endforeach; ?>]
-    let southVotes = [<?php foreach ($polls as $poll) : ?><?= $poll['south_votes'] ?>, <?php endforeach; ?>]
-    let southOptions = [<?php foreach ($polls as $poll) : ?><?= "'" . (string)$poll['south_ans'] . "'" ?>, <?php endforeach; ?>]
-    for (let i = 0; i < chartIds.length; i++) {
-        const id = chartIds[i];
-        const north = northVotes[i];
-        const northOption = northOptions[i];
-        const south = southVotes[i];
-        const southOption = southOptions[i];
-        const ctx = document.getElementById("chart" + id).getContext('2d');
-        const voteChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [northOption, southOption],
-                datasets: [{
-                    label: 'Votes',
-                    data: [north, south], // Replace these numbers with your actual data
-                    backgroundColor: [
-                        '#f38742', // North votes color
-                        '#39ccf1' // South votes color
-                    ],
-                    borderColor: [
-                        '#f38742', // North votes color
-                        '#39ccf1' // South votes color
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false // This will hide the legend
+    "use strict";
+    $(document).ready(function() {
+        let charts = {}; // Store chart instances
+        let lastVotes = {}; // Store the last votes to check for changes
+        // get all public polls
+        $.get({
+            url: "<?= BASE_URL . "allpolls-ajax" ?>",
+            success: function(data) {
+                const polls = JSON.parse(data);
+                console.log(polls)
+                polls.forEach(poll => {
+                    const hasVoted = poll.has_voted;
+                    if (hasVoted) {
+                        const pollId = poll.poll_id;
+                        const north = poll.north_votes;
+                        const south = poll.south_votes;
+                        updateChart(pollId, north, south);
+                        lastVotes[pollId] = [north, south];
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true // Ensures the scale starts at 0
-                    }
-                }
+                    // const pollId = poll.poll_id;
+                    // const north = poll.north_votes;
+                    // const south = poll.south_votes;
+                    // updateChart(pollId, north, south);
+                    // lastVotes[pollId] = [north, south];
+                });
             }
         });
-    }
+
+        $('.vote-form button').on('click', function() {
+            const button = $(this);
+            const form = button.closest('.vote-form');
+            const pollId = form.data('poll-id');
+            const vote = button.data('vote');
+
+            $.ajax({
+                url: "<?= BASE_URL . "poll/vote-ajax" ?>",
+                type: "POST",
+                data: {
+                    poll_id: pollId,
+                    vote: vote
+                },
+                success: function(data) {
+                    // console.log(data)
+                    // const response = JSON.parse(data);
+                    const response = data;
+                    if (response.success) {
+                        // Update the UI: Remove buttons and show chart
+                        form.find('button').hide(); // Hide voting buttons
+                        updateChart(pollId, response.north_votes, response.south_votes);
+                        $('#chart' + pollId).show(); // Show the chart
+                        // Store the updated votes for periodic update checks
+                        lastVotes[pollId] = [response.north_votes, response.south_votes];
+                    } else {
+                        alert('Error: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Error submitting vote.');
+                }
+            });
+        });
+
+        function updateChart(pollId, northVotes, southVotes) {
+            const chartId = 'chart' + pollId;
+            const canvas = document.getElementById(chartId);
+            if (!canvas) {
+                console.error('Canvas element not found for chartId:', chartId);
+                return;
+            }
+            canvas.style.display = 'block'; // Ensure canvas is visible
+            const ctx = canvas.getContext('2d');
+            if (charts[chartId]) {
+                console.log('Destroying existing chart for chartId:', chartId);
+                charts[chartId].destroy(); // Destroy existing chart instance if any
+            }
+            charts[chartId] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["North", "South"],
+                    datasets: [{
+                        label: 'Votes',
+                        data: [northVotes, southVotes],
+                        backgroundColor: ['#f38742', '#39ccf1'],
+                        borderColor: ['#f38742', '#39ccf1'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            console.log('Chart created for chartId:', chartId);
+        }
+
+        function fetchUpdates() {
+            $.ajax({
+                url: "<?= BASE_URL . "polls/get-updates" ?>",
+                success: function(data) {
+                    // const updates = JSON.parse(data);
+                    const updates = data;
+                    // console.log(updates);
+                    updates.forEach(update => {
+                        const pollId = update.poll_id;
+                        const northVotes = update.north_votes;
+                        const southVotes = update.south_votes;
+                        if (lastVotes[pollId] && ($('#chart' + pollId).is(':visible'))) {
+                            if (parseInt(lastVotes[pollId][0]) !== northVotes || parseInt(lastVotes[pollId][1]) !== southVotes) {
+                                updateChart(pollId, northVotes, southVotes);
+                                lastVotes[pollId] = [northVotes, southVotes];
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Periodic update every 30 seconds
+        setInterval(fetchUpdates, 3000);
+    });
 </script>
 
 </html>

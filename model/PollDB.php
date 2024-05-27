@@ -2,6 +2,15 @@
 
 class PollDB
 {
+    public static function getVotes($poll_id)
+    {
+        $db = DBInit::getInstance();
+        $stmt = $db->prepare("SELECT COUNT(case when vote = 1 then 1 end) as north_votes, COUNT(case when vote = 0 then 1 end) as south_votes FROM votes WHERE poll_id = :poll_id");
+        $stmt->bindParam(":poll_id", $poll_id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     public static function getAllPolls()
     {
         $dbh = DBInit::getInstance();
@@ -23,6 +32,21 @@ class PollDB
                        LEFT JOIN users u ON p.created_by = u.user_id
                           WHERE p.created_by != :user_id
                        GROUP BY p.poll_id, p.question");
+        $stmt->bindValue(":user_id", $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public static function getAllOtherPollsAjax($user_id)
+    {
+        $dbh = DBInit::getInstance();
+        $stmt = $dbh->prepare("SELECT p.poll_id, p.question, p.north_ans, p.south_ans, u.username, SUM(v.vote) AS north_votes, COUNT(v.vote) - SUM(v.vote) AS south_votes, 
+                      CASE WHEN EXISTS (SELECT 1 FROM votes WHERE poll_id = p.poll_id AND user_id = :user_id) THEN 1 ELSE 0 END AS has_voted
+                      FROM polls p
+                      LEFT JOIN votes v ON p.poll_id = v.poll_id
+                      LEFT JOIN users u ON p.created_by = u.user_id
+                      WHERE p.created_by != :user_id
+                      GROUP BY p.poll_id, p.question");
         $stmt->bindValue(":user_id", $user_id);
         $stmt->execute();
         return $stmt->fetchAll();

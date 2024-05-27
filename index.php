@@ -49,6 +49,9 @@ $urls = [
     "allpolls" => function () {
         PollController::showAllPolls();
     },
+    "allpolls-ajax" => function () {
+        PollController::showAllPollsAjax();
+    },
     "poll/add" => function () {
         if (!User::isLoggedIn()) {
             ViewHelper::redirect(BASE_URL . "user/login");
@@ -62,6 +65,12 @@ $urls = [
     },
     "poll/vote" => function () {
         PollController::vote();
+    },
+    "poll/vote-ajax" => function () {
+        PollController::voteAjax();
+    },
+    "polls/get-updates" => function () {
+        PollController::getUpdates();
     },
     "poll/delete" => function () {
         PollController::deletePoll();
