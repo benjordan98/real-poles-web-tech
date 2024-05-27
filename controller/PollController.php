@@ -74,13 +74,11 @@ class PollController
     public static function vote()
     {
         if (!User::isLoggedIn()) {
-            ViewHelper::redirect(BASE_URL . "user/login");
-            echo "You need to be logged in to vote.";
+            ViewHelper::render("view/user-login.php", ["errorMessage" => "You need to be logged in to vote."]);
             return;
         }
         if (self::hasUserVoted($_POST["poll_id"])) {
             self::showAllPolls(["errorMessage" => "You have already voted."]);
-            // echo "You have already voted.";
             return;
         }
         $validData = isset($_POST["poll_id"]) && isset($_POST["vote"]);

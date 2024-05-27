@@ -10,7 +10,6 @@ class UserDB
         // print list of db tables to check its working
         $stmt = $dbh->query("SHOW TABLES");
         $tables = $stmt->fetchAll();
-        print_r($tables);
         $stmt = $dbh->prepare("SELECT user_id, username, password FROM users
             WHERE username = :username");
         // $stmt = $dbh->prepare("SELECT * FROM users");
@@ -18,7 +17,6 @@ class UserDB
         // print statement
         $stmt->execute();
         $user = $stmt->fetch();
-        print_r($user);
         // for now no hashing of password until registration is implemented
         // if ($password == $user["password"]) {    
         //     echo "password verified";
@@ -29,11 +27,11 @@ class UserDB
             return null;
         }
         if (password_verify($password, $user["password"])) {
-            echo "password verified";
+            // echo "password verified";
             unset($user["password"]);
             return $user;
         }
-        echo "password not verified";
+        // echo "password not verified";
         return null;
     }
 

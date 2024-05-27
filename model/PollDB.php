@@ -99,9 +99,7 @@ class PollDB
         $maxVoteId = $stmt->fetchColumn();
         $newVoteId = $maxVoteId + 1;
 
-        echo "inserting vote";
         $dbh = DBInit::getInstance();
-        echo $poll_id;
         $stmt = $dbh->prepare("INSERT INTO votes (vote_id, poll_id, vote, user_id) VALUES (:vote_id, :poll_id, :vote, :user_id)");
         $stmt->bindValue(":vote_id", $newVoteId);
         $stmt->bindValue(":poll_id", $poll_id);
